@@ -1,0 +1,16 @@
+version: "3.4"
+services:
+  app:
+    build:
+      context: config/docker
+      dockerfile: dockerfiles/Dockerfile.app
+    entrypoint: /bin/sleep infinity
+    working_dir: /usr/src/app/
+    volumes:
+      - "../:/usr/src/app:cached"
+    environment:
+      - TERM=xterm-256color
+      - TZ="Europe/Rome"
+      - DNSDOCK_ALIAS=app.${PROJECT_NAME}.${PROJECT_VENDOR}.docker
+      - VIRTUAL_HOST=app.${PROJECT_NAME}.${PROJECT_VENDOR}.docker
+      - VIRTUAL_PORT=${PROJECT_PORT}
